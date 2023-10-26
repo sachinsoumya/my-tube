@@ -1,9 +1,12 @@
 import "./App.css";
 import { Head } from "./Components/Head";
 import { Body } from "./Components/Body";
+import store from "./Utils/Store";
+import { Provider } from "react-redux";
 
 function App() {
   return (
+    <Provider store = {store}>
     <div className="text-black-600">
      
       {/*
@@ -18,9 +21,10 @@ function App() {
        *Video card    
 
 */}
-      <Head></Head>
+      <Head />
       <Body />
     </div>
+    </Provider>
   );
 }
 
