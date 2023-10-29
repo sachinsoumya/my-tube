@@ -68,3 +68,25 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## ad
+
+PR
+
+* - render the component
+
+Pree
+
++= start tisen = make api call after 200 ms
+ay - 4p
+
++ - destroy the component (useEfect return method)
+Eppes
+
+Pe)
+
+PRES ETE RL
+
++ setTineout(200) - make on AP call after 200 ms
+) 1
+

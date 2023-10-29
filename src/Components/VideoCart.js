@@ -1,7 +1,7 @@
 import React from 'react'
 
 const VideoCart = ({info}) => {
-    console.log(info);
+    // console.log(info);
     const {snippet , statistics } = info
     const {channelTitle , title , thumbnails} = snippet;
 
@@ -19,6 +19,16 @@ const VideoCart = ({info}) => {
 
     </div>
   )
+
 }
 
+export const AdVideoCard = ({info})=>{
+  return (
+    <div className='p-1 m-1 border border-red-100'>
+       <VideoCart info={info} />
+
+    </div>
+   
+  )
+}
 export default VideoCart

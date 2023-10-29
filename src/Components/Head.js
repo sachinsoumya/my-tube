@@ -1,15 +1,56 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../Utils/appSlice";
+
+import { YOUTUBE_SEARCH_API } from "../Utils/Constant";
+import { cacheResult } from "../Utils/SearchSlice";
+
 export const Head = () => {
+  const [searchQuery, setsearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchCache = useSelector((store) => store.search);
   const dispatch = useDispatch();
+  console.log(searchQuery);
 
+  useEffect(() => {
+    //api call
+    console.log(searchQuery);
 
-  const toggleMenuHandler = ()=>{
-    dispatch(toggleMenu());
-   
+    const timer = setTimeout(() => {
+      if (searchCache[searchQuery]) {
+        setSuggestions(searchCache[searchQuery]);
+      } else {
+        getSuggestions();
+      }
+    }, 200);
+
+    //make an api call after every key press .
+    //but if the difference between 2 api calls is < 200ms then ,
+    // Declain the api call
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [searchQuery]);
+
+  const getSuggestions = async () => {
+    console.log("Api Call -" + searchQuery);
+    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+    const json = await data.json();
+    setSuggestions(json[1]);
+    console.log(json[1]);
+
+    dispatch(
+      cacheResult({
+        [searchQuery]: json[1],
+      })
+    );
   };
 
+  const toggleMenuHandler = () => {
+    dispatch(toggleMenu());
+  };
 
   return (
     <div className="grid grid-cols-6 justify-between gap-x-9 pb-2 pt-1 px-0 lg:px-4 md:gap-x-14 shadow-xl">
@@ -18,7 +59,7 @@ export const Head = () => {
           src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2012/10/threelines.png"
           alt="hamburgericon"
           className="w-8 h-8 lg:w-16 lg:h-11 md:h-9 cursor-pointer"
-          onClick={()=>toggleMenuHandler()}
+          onClick={() => toggleMenuHandler()}
         />
 
         <img
@@ -32,10 +73,31 @@ export const Head = () => {
         <input
           type="text"
           className=" h-8  p-1 w-4/6 lg:h-10 border border-black rounded-l-full lg:w-5/6 lg:p-2  md:w-5/6 md:p-5"
-          value="search"
+          onChange={(e) => setsearchQuery(e.target.value)}
+          onFocus={() => setShowSuggestions(true)}
+          onBlur={() => setShowSuggestions(false)}
         />
 
-        <button className="border border-black p-1 md:p-2 rounded-r-full bg-gray-100 "> Search</button>
+        <button className="border border-black p-1 md:p-2 rounded-r-full bg-gray-100 ">
+          {" "}
+          🔍
+        </button>
+
+        {showSuggestions && (
+          <div className="fixed w-40 md:w-96 lg:w-3/6 bg-white p-2 rounded-lg mt-2 shadow-md border border-gray-200 ">
+            <ul>
+              {suggestions &&
+                suggestions.map((item) => {
+                  return (
+                    <li className="py-2 hover:bg-gray-200" key={item}>
+                      {" "}
+                      🔍{item}
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        )}
       </div>
 
       <div>
