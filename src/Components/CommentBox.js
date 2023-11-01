@@ -17,11 +17,13 @@ const CommentBox = ({ videoId }) => {
   };
 
   return (
-    <div>
+    <div className="px-2 py-3">
+      
+      <div className="font-bold text-2xl">{comments.length}<span className="mx-2">Comments</span></div>
       {comments &&
         comments.map((comment) => {
           return (
-            <div className="px-2">
+            <div >
               <TopComment data={comment} key={comment.id} />
             </div>
           );

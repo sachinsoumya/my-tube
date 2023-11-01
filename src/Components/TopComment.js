@@ -7,7 +7,7 @@ const TopComment = ({ data }) => {
     authorDisplayName,
     authorProfileImageUrl,
     publishedAt,
-    updatedA,
+    
     likeCount,
   } = data.snippet.topLevelComment.snippet;
 
