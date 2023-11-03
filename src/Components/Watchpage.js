@@ -1,18 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { closeMenu } from "../Utils/appSlice";
-import { useSearchParams } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 import VideoDes from "./VideoDes";
+import { Link } from "react-router-dom";
 
-import CommentBox from "./CommentBox";
+// import CommentBox from "./CommentBox";
+import { storeValue } from "../Utils/PropSlice";
 
 const Watchpage = () => {
   const [searchParams] = useSearchParams();
+  const [check, setCheck] = useState(false);
   console.log(searchParams.get("v"));
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(closeMenu());
+    dispatch(storeValue(searchParams.get("v")));
+    setCheck(true);
   }, []);
   return (
     <div>
@@ -29,13 +34,29 @@ const Watchpage = () => {
             ></iframe>
           </div>
           <VideoDes videoId={searchParams.get("v")} />
-        </div>
-        <div className="w-full h-96 bg-slate-400">
-          hii
+          <div className="flex py-3 px-2 ">
+            <Link to={`/watch?v=${searchParams.get("v")}`}>
+              <div className="font-bold text-2xl hover:underline">Comments</div>
+            </Link>
+            <Link to={`/watch/live?v=${searchParams.get("v")}`}>
+              <div className="font-bold text-2xl mx-5 hover:underline-offset-4 hover:underline">
+                Live
+              </div>
+            </Link>
+          </div>
 
+          {check && <Outlet />}
         </div>
+        <div className="w-full h-96 bg-slate-400">hii</div>
       </div>
-      <CommentBox videoId = {searchParams.get("v")} />
+      {/* <div className="flex py-3 px-2 ">
+        <Link to={`/watch?v=${searchParams.get('v')}`} ><div className="font-bold text-2xl hover:underline">Comments</div></Link>
+        <Link to={`/watch/live?v=${searchParams.get('v')}`}><div className="font-bold text-2xl mx-5 hover:underline-offset-4 hover:underline">Live</div></Link>
+      </div>
+
+     {check && <Outlet /> }  */}
+
+      {/* <CommentBox videoId = {searchParams.get("v")} /> */}
     </div>
   );
 };
