@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 // import CommentBox from "./CommentBox";
 import { storeValue } from "../Utils/PropSlice";
+import SuggestedVideos from "./SuggestedVideos";
 
 const Watchpage = () => {
   const [searchParams] = useSearchParams();
@@ -27,7 +28,7 @@ const Watchpage = () => {
             <iframe
               className="w-full h-full rounded md:rounded-lg lg:rounded-lg"
               src={`https://www.youtube.com/embed/${searchParams.get("v")}`}
-              title="ଚହଳ | Chahala | Full Video Song | Malyagiri | Babushaan | Sivani | Ananya | Gaurav | JP Wordsmith"
+              title="title"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
@@ -47,7 +48,7 @@ const Watchpage = () => {
 
           {check && <Outlet />}
         </div>
-        <div className="w-full h-96 bg-slate-400">hii</div>
+        <SuggestedVideos />
       </div>
       {/* <div className="flex py-3 px-2 ">
         <Link to={`/watch?v=${searchParams.get('v')}`} ><div className="font-bold text-2xl hover:underline">Comments</div></Link>

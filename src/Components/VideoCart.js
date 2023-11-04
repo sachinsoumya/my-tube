@@ -12,7 +12,7 @@ const VideoCart = ({info}) => {
         <img src={thumbnails.medium.url} alt="Thumbnail" className='rounded-lg' />
         <ul>
             <li className='text-sm md:text-base font-medium md:font-bold'>{title}</li>
-            <li >{channelTitle}</li>
+            <li>{channelTitle}</li>
             <li>{statistics.viewCount} views</li>
            
         </ul>

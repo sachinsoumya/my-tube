@@ -20,7 +20,7 @@ const VideoDes = ({ videoId }) => {
         <div>
           <div className="font-bold text-xl py-2">{description.title}</div>
           <div className="flex justify-between  w-full py-4">
-            <div className="font-bold text-sm">{description.channelTitle}</div>
+            <div className="font-bold text-sm border border-black rounded-lg shadow-lg p-2">{description.channelTitle}</div>
             <div className="font-bold text-sm">{description.publishedAt}</div>
           </div>
           <div className="bg-zinc-300  w-full py-4 shadow-lg rounded-lg">

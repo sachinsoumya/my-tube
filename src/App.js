@@ -8,34 +8,32 @@ import MainContainer from "./Components/MainContainer";
 import Watchpage from "./Components/Watchpage";
 import { LivecommentBox } from "./Components/LivecommentBox";
 import CommentBox from "./Components/CommentBox";
-import CommentsContainer from "./Components/CommentsContainer"
+import CommentsContainer from "./Components/CommentsContainer";
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <Body />,
-    children : [
+    children: [
       {
-        path:"/",
-        element:<MainContainer />
+        path: "/",
+        element: <MainContainer />,
       },
       {
-        path:"/watch" ,
-        element:<Watchpage /> ,
-        children : [
+        path: "/watch",
+        element: <Watchpage />,
+        children: [
           {
-            path:"/watch" ,
-            element:<CommentBox />
-
+            path: "/watch",
+            element: <CommentBox />,
           },
           {
-            path:"/watch/live" ,
-            element:<LivecommentBox />
-
-          }
-        ]
-      }
-    ]
+            path: "/watch/live",
+            element: <LivecommentBox />,
+          },
+        ],
+      },
+    ],
   },
 ]);
 
@@ -43,7 +41,6 @@ function App() {
   return (
     <Provider store={store}>
       <div className="text-black-600 overflow-hidden">
-       
         <Head />
         <RouterProvider router={appRouter} />
         {/* <Body /> */}
