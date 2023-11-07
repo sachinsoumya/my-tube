@@ -4,18 +4,23 @@ import { toggleMenu } from "../Utils/appSlice";
 
 import { YOUTUBE_SEARCH_API } from "../Utils/Constant";
 import { cacheResult } from "../Utils/SearchSlice";
+import { searchResullts } from "../Utils/SearchValue";
+import { SEARCH_RESULTS_API } from "../Utils/Constant";
 
 export const Head = () => {
   const [searchQuery, setsearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState("");
+  const [searchValue, setSearchValue] = useState(false);
+  console.log(searchValue);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchCache = useSelector((store) => store.search);
   const dispatch = useDispatch();
-  console.log(searchQuery);
+
+  // console.log(searchQuery);
 
   useEffect(() => {
     //api call
-    console.log(searchQuery);
+    // console.log(searchQuery);
 
     const timer = setTimeout(() => {
       if (searchCache[searchQuery]) {
@@ -52,6 +57,36 @@ export const Head = () => {
     dispatch(toggleMenu());
   };
 
+  const updateState = (item) => {
+    setsearchQuery(item);
+
+    setShowSuggestions(false);
+    if (searchValue) {
+      setShowSuggestions(false);
+    } else {
+      setSearchValue(true);
+    }
+
+    apiCall(item);
+
+   
+  };
+
+
+  const apiCall = async(value)=>{
+   const data = await fetch(`${SEARCH_RESULTS_API}${value}`)
+   const json = await data.json();
+    console.log(json);
+
+    dispatch(
+      searchResullts(json.items)
+    );
+
+
+
+    
+  }
+
   return (
     <div className="grid grid-cols-6 justify-between gap-x-9 pb-2 pt-1 px-0 lg:px-4 md:gap-x-14 shadow-xl">
       <div className="flex">
@@ -75,7 +110,8 @@ export const Head = () => {
           className=" h-8  p-1 w-4/6 lg:h-10 border border-black rounded-l-full lg:w-5/6 lg:p-2  md:w-5/6 md:p-5"
           onChange={(e) => setsearchQuery(e.target.value)}
           onFocus={() => setShowSuggestions(true)}
-          onBlur={() => setShowSuggestions(false)}
+          // onBlur={() => searchValue && setShowSuggestions(false)}
+          value={searchQuery}
         />
 
         <button className="border border-black p-1 md:p-2 rounded-r-full bg-gray-100 ">
@@ -89,7 +125,11 @@ export const Head = () => {
               {suggestions &&
                 suggestions.map((item) => {
                   return (
-                    <li className="py-2 hover:bg-gray-200" key={item}>
+                    <li
+                      className="py-2 hover:bg-gray-200"
+                      key={item}
+                      onClick={() => updateState(item)}
+                    >
                       {" "}
                       🔍{item}
                     </li>

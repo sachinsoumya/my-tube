@@ -24,7 +24,7 @@ const CommentBox = () => {
   return (
     <div className="px-2 py-3">
       
-      <div className="font-bold text-2xl underline decoration-slate-500 decoration-1 underline-offset-4 w-96">{comments.length}<span className="mx-2">Comments</span></div>
+      <div className="font-bold text-2xl underline decoration-slate-500 decoration-1 underline-offset-4 w-96">{comments ? comments.length : "0"}<span className="mx-2">Comments</span></div>
       {comments &&
         comments.map((comment) => {
           return (

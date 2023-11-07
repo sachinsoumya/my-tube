@@ -19,7 +19,7 @@ const Watchpage = () => {
     dispatch(closeMenu());
     dispatch(storeValue(searchParams.get("v")));
     setCheck(true);
-  }, []);
+  }, [dispatch , searchParams]);
   return (
     <div>
       <div className="grid lg:grid-cols-3 grid-cols-1 ">
@@ -29,9 +29,9 @@ const Watchpage = () => {
               className="w-full h-full rounded md:rounded-lg lg:rounded-lg"
               src={`https://www.youtube.com/embed/${searchParams.get("v")}`}
               title="title"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
           <VideoDes videoId={searchParams.get("v")} />

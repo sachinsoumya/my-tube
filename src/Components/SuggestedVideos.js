@@ -20,8 +20,8 @@ const SuggestedVideos = () => {
     <div>
       {suggVideos &&
         suggVideos.map((video) => (
-          <div>
-            <Link to={`/watch?v=${video.id}`}>
+          <div key={video.id}>
+            <Link to={`/watch?v=${video.id}`} >
               <SuggVideoCart data={video} />
             </Link>
           </div>
