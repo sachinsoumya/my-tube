@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { YOUTUBE_API_KEY } from "../Utils/Constant";
 import VideoCart , {AdVideoCard} from "./VideoCart";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
-  const navigate= useNavigate();
+  
   useEffect(() => {
     getVideos();
   }, []);

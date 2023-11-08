@@ -10,6 +10,7 @@ import { LivecommentBox } from "./Components/LivecommentBox";
 import CommentBox from "./Components/CommentBox";
 // import CommentsContainer from "./Components/CommentsContainer";
 import SearchVideos from "./Components/SearchVideos";
+import Catagory from "./Components/Catagory";
 
 const appRouter = createBrowserRouter([
   {
@@ -39,6 +40,11 @@ const appRouter = createBrowserRouter([
         path: "/results",
         element: <SearchVideos />,
       },
+
+      {
+        path:"/catagory/:id",
+        element:<Catagory />
+      }
     ],
   },
 ]);

@@ -2,6 +2,6 @@ import React from 'react'
 
 export const Button = ({name}) => {
   return (
-    <div className='bg-slate-300 rounded-lg p-1 md:p-2 lg:p-3 '>{name}</div>
+    <div className='bg-slate-100 rounded-lg p-2 mx-2 text-center text-[0.5rem] md:py-2 lg:py-3  md:mx-2  md:text-sm font-semibold '>{name}</div>
   )
 }
