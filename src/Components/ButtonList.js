@@ -102,6 +102,15 @@ const ButtonList = () => {
     setVideoCategories(json.items);
   };
 
+  // const newValues=videoCategories.filter((item,index)=>{
+  //  return [1,2,10,15,17,20,22,23,24,25,26,28].includes(Number(item.id));
+
+  //     return item.id<20
+
+  // })
+
+  // console.log(newValues);
+
   return (
     <div>
       {/* <Button name="All" />
@@ -113,11 +122,15 @@ const ButtonList = () => {
 
       <Slider {...settings} className="px-7">
         {videoCategories &&
-          videoCategories.map((item, index) => {
+          videoCategories.map((item) => {
             return (
-              <Link to={`/catagory/${item.id}`} key={item.id}>
-                <Button name={item.snippet.title} />
-              </Link>
+              [1, 2, 10, 15, 17, 20, 22, 23, 24, 25, 26, 28].includes(
+                Number(item.id)
+              ) && (
+                <Link to={`/catagory/${item.id}`} key={item.id}>
+                  <Button name={item.snippet.title} />
+                </Link>
+              )
             );
           })}
       </Slider>

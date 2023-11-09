@@ -13,5 +13,8 @@ export const COMMENT_API = `https://youtube.googleapis.com/youtube/v3/commentThr
 export const SEARCH_RESULTS_API = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&key=${GOOGLE_API_KEY}&q=`
 
 export const CATEGORY_RESULTS_API = `https://youtube.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode=IN&key=${GOOGLE_API_KEY}`
+
+export const CATEGORY_VIDEOS_API = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=IN&key=${GOOGLE_API_KEY}&videoCategoryId=` 
+
  
 export const OFFSET_LIVE_CHAT = 20 
