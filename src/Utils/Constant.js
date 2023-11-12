@@ -16,5 +16,7 @@ export const CATEGORY_RESULTS_API = `https://youtube.googleapis.com/youtube/v3/v
 
 export const CATEGORY_VIDEOS_API = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=IN&key=${GOOGLE_API_KEY}&videoCategoryId=` 
 
+export const CHANNEL_API = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&key=${GOOGLE_API_KEY}&id=`
+
  
 export const OFFSET_LIVE_CHAT = 20 

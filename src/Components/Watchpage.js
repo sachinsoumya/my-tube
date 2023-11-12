@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { closeMenu } from "../Utils/appSlice";
 import { Outlet, useSearchParams } from "react-router-dom";
 import VideoDes from "./VideoDes";
@@ -11,15 +11,20 @@ import SuggestedVideos from "./SuggestedVideos";
 
 const Watchpage = () => {
   const [searchParams] = useSearchParams();
-  const [check, setCheck] = useState(false);
-  console.log(searchParams.get("v"));
+  // const [check, setCheck] = useState(false);
+  // console.log(check);
+  // console.log(searchParams.get("v"));
+  const query = searchParams.get("v");
+  console.log(query);
   const dispatch = useDispatch();
+  const videoId = useSelector((store)=>store.prop)
 
   useEffect(() => {
     dispatch(closeMenu());
-    dispatch(storeValue(searchParams.get("v")));
-    setCheck(true);
-  }, [dispatch , searchParams]);
+    dispatch(storeValue(query)); 
+    // setCheck(true);
+    console.log("rerendering")
+  }, [dispatch , query]);
   return (
     <div>
       <div className="grid lg:grid-cols-3 grid-cols-1 ">
@@ -46,7 +51,7 @@ const Watchpage = () => {
             </Link>
           </div>
 
-          {check && <Outlet />}
+          {query===videoId.propValue && <Outlet />}
         </div>
         <SuggestedVideos />
       </div>

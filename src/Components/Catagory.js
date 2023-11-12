@@ -10,10 +10,10 @@ const Catagory = () => {
   const { id } = params;
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData(id);
+  }, [id]);
 
-  const getData = async () => {
+  const getData = async (id) => {
     const data = await fetch(`${CATEGORY_VIDEOS_API}${id}`);
     const json = await data.json();
 
