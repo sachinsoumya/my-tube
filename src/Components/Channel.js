@@ -1,23 +1,38 @@
-import React, { useEffect } from 'react'
-import { CHANNEL_API } from '../Utils/Constant';
+import React, { useEffect, useState } from "react";
+import { CHANNEL_API } from "../Utils/Constant";
 
-const Channel = ({ channelId}) => {
-    
-  useEffect(()=>{
-    getData();
+const Channel = ({ channelId }) => {
+  const [channelDetails, setChannelDetails] = useState("");
 
-  },[])
+  useEffect(() => {
+    getData(channelId);
+  }, [channelId]);
 
-  const getData = async()=>{
-    const data = await fetch(CHANNEL_API+channelId)
+  const getData = async (channelId) => {
+    const data = await fetch(CHANNEL_API + channelId);
     const json = await data.json();
     console.log(json);
-  }
-
+    console.log(channelId);
+    setChannelDetails(json.items[0]);
+  };
 
   return (
-    <div>{ channelId}</div>
-  )
-}
+    channelDetails && (
+      <div className="flex">
+        <div>
+          <img
+            src={`${channelDetails.snippet.thumbnails.default.url}`}
+            alt="channel banner"
+            className="w-10 rounded-full"
+          />
+        </div>
+        <div className="self-center px-2">
+          <div>{channelDetails.snippet.localized.title}</div>
+          <div>{channelDetails.statistics.subscriberCount}</div>
+        </div>
+      </div>
+    )
+  );
+};
 
-export default Channel
+export default Channel;

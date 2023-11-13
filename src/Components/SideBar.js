@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CATEGORY_RESULTS_API } from "../Utils/Constant";
+import {AiOutlineHome} from 'react-icons/ai'
 
 export const SideBar = () => {
   const [list, setList] = useState("");
@@ -26,10 +27,10 @@ export const SideBar = () => {
       <div className="font-medium py-2 text-xs md:text-base">
         <ul>
           <Link to="/">
-            <li className="pt-3">Home</li>
+            <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg"><AiOutlineHome  />Home</li>
           </Link>
-          <li className="pt-3">Shorts</li>
-          <li className="pt-3">Subscription</li>
+          <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">Shorts</li>
+          <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">Subscription</li>
         </ul>
       </div>
       <div className="py-2">
@@ -42,7 +43,7 @@ export const SideBar = () => {
                   Number(item.id)
                 ) && (
                   <Link to={`/catagory/${item.id}`} key={item.id}>
-                    <li className="pt-3">{item.snippet.title}</li>
+                    <li className="py-2 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">{item.snippet.title}</li>
                   </Link>
                 )
               );
