@@ -28,7 +28,7 @@ const Channel = ({ channelId }) => {
         </div>
         <div className="self-center px-2">
           <div>{channelDetails.snippet.localized.title}</div>
-          <div>{channelDetails.statistics.subscriberCount}</div>
+          <div>{channelDetails.statistics.subscriberCount}<span className="pl-1 text-xs text-zinc-400 font-normal">subscriber</span></div>
         </div>
       </div>
     )

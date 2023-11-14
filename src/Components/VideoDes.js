@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { VIDEO_DESCRIPTION_API } from "../Utils/Constant";
 import Channel from "./Channel";
+import { useSelector } from "react-redux";
+import { AiOutlineLike } from "react-icons/ai";
+import { PiShareFat } from "react-icons/pi";
+import { LiaDownloadSolid } from "react-icons/lia";
+import { BiDislike } from "react-icons/bi";
 
 const VideoDes = ({ videoId }) => {
   const [description, setDescription] = useState("");
+  const analytics = useSelector((store) => store.statistics.statistics);
+  // console.log(analytics)
+  const { viewCount, likeCount, favoriteCount } = analytics;
+
+  console.log(viewCount);
+  console.log(likeCount);
+  console.log(favoriteCount);
+
   console.log(videoId);
   useEffect(() => {
     getDescription(videoId);
@@ -20,14 +33,38 @@ const VideoDes = ({ videoId }) => {
       {description && (
         <div>
           <div className="font-bold text-xl py-2">{description.title}</div>
-          <div className="flex justify-between  w-full py-4">
-            <div className="font-bold text-sm  p-2">
-              <Channel channelId={description.channelId} />
+          <div className="grid  md:grid-cols-2 grid-col-1  gap-4 w-full py-4">
+            <div className="flex justify-between">
+              <div className="font-bold text-sm  p-2">
+                <Channel channelId={description.channelId} />
+              </div>
+              <div className="font-bold text-sm self-center md:justify-self-start justify-self-end">
+                <button className="bg-black text-white w-24 p-2 border border-black rounded-full font-medium text-center">
+                  Subscribe
+                </button>
+              </div>
             </div>
-            <div className="font-bold text-sm self-center"><button className="bg-black text-white w-24 p-2 border border-black rounded-full font-medium text-center">Subscribe</button></div>
+            <div className="flex self-center justify-around text-lg">
+              <div className=" rounded-lg bg-zinc-100 flex justify-evenly  lg:w-32 md:w-28 w-24">
+                <div className=" hover:bg-zinc-200 lg:w-16 md:w-14 w-12 rounded-lg">
+                  <AiOutlineLike className="inline" />
+                  <span className="lg:text-sm md:text-[0.7rem] text-[0.55rem]">{likeCount}</span>
+                </div>{" "}
+                <div className=" hover:bg-zinc-200  md:w-14 text-center w-12 rounded-lg">
+                  <BiDislike className="inline" />
+                </div>{" "}
+              </div>
+              <div className="bg-zinc-100 rounded-lg hover:bg-zinc-200 text-center lg:w-32 md:w-28 w-24">
+                <PiShareFat className="inline" />
+              </div>
+              <div className="bg-zinc-100 rounded-lg hover:bg-zinc-200 text-center lg:w-32 md:w-28 w-24">
+                <LiaDownloadSolid className="inline" />
+              </div>
+            </div>
           </div>
           <div className="bg-zinc-300  w-full py-4 shadow-lg rounded-lg">
             <div className="font-semibold text-sm my-1">
+              {viewCount} views{"  "}
               {description.publishedAt}
             </div>
             <div className="font-semibold my-1">{description.description}</div>

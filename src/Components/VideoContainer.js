@@ -3,11 +3,13 @@ import { YOUTUBE_API_KEY } from "../Utils/Constant";
 import VideoCart , {AdVideoCard} from "./VideoCart";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { addLike } from "../Utils/statSlice";
 
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
+  const dispatch = useDispatch();
   
   useEffect(() => {
     getVideos();
@@ -42,7 +44,7 @@ const VideoContainer = () => {
     return videos && (
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full">
         {videos.map((video) => (
-          <Link to={`/watch?v=${video.id}`} key={video.id}>
+          <Link to={`/watch?v=${video.id}`} key={video.id} onClick={()=>{dispatch(addLike(video.statistics))}}>
             <VideoCart info={video} />
           </Link>
         ))}
@@ -56,7 +58,7 @@ const VideoContainer = () => {
         <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full ">
           {/* {videos[0] && <AdVideoCard info={videos[0]}/>} */}
           {searchResullts.map((video) => (
-            <Link to={`/watch?v=${video.id.videoId}`}>
+            <Link to={`/watch?v=${video.id.videoId}`} >
               <VideoCart info={video} />
             </Link>
           ))}

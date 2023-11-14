@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { CATEGORY_RESULTS_API } from "../Utils/Constant";
 import {AiOutlineHome} from 'react-icons/ai'
 
+
 export const SideBar = () => {
   const [list, setList] = useState("");
 

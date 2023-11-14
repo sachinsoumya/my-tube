@@ -4,6 +4,7 @@ import SearchSlice from './SearchSlice';
 import PropSlice from './PropSlice';
 import chatSlice from './chatSlice';
 import SearchValue from './SearchValue';
+import statSlice from './statSlice';
 
 const store = configureStore({
     reducer : {
@@ -11,7 +12,8 @@ const store = configureStore({
         search:SearchSlice ,
         prop:PropSlice ,
         chat:chatSlice ,
-        searchValue:SearchValue
+        searchValue:SearchValue,
+        statistics :statSlice ,
     }
 });
 

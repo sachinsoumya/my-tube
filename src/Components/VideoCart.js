@@ -1,9 +1,10 @@
 import React from 'react'
 
+
 const VideoCart = ({info}) => {
     // console.log(info);
     const {snippet} = info
-    const {channelTitle , title , thumbnails} = snippet;
+    const {channelTitle , title , thumbnails } = snippet;
     // console.log(statistics.viewCount)
 
     
