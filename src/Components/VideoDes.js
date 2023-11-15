@@ -9,6 +9,8 @@ import { BiDislike } from "react-icons/bi";
 
 const VideoDes = ({ videoId }) => {
   const [description, setDescription] = useState("");
+  const [text, setText] = useState("");
+  const [readButton, setReadButton] = useState("...more");
   const analytics = useSelector((store) => store.statistics.statistics);
   // console.log(analytics)
   const { viewCount, likeCount, favoriteCount } = analytics;
@@ -27,7 +29,24 @@ const VideoDes = ({ videoId }) => {
     const json = await data.json();
     console.log(json);
     setDescription(json.items[0].snippet);
+    setText(json.items[0].snippet.description.slice(0, 150));
   };
+
+  // if(description){
+  //   // setText(description.description.slice(0,15))
+  //   console.log("hiii")
+  // }
+
+  const desMagic = () => {
+    if (text.length < 151) {
+      setText(description.description);
+      setReadButton("show less");
+    } else {
+      setText(description.description.slice(0, 150));
+      setReadButton("...more");
+    }
+  };
+
   return (
     <div className="px-2">
       {description && (
@@ -48,7 +67,9 @@ const VideoDes = ({ videoId }) => {
               <div className=" rounded-lg bg-zinc-100 flex justify-evenly  lg:w-32 md:w-28 w-24">
                 <div className=" hover:bg-zinc-200 lg:w-16 md:w-14 w-12 rounded-lg">
                   <AiOutlineLike className="inline" />
-                  <span className="lg:text-sm md:text-[0.7rem] text-[0.55rem]">{likeCount}</span>
+                  <span className="lg:text-sm md:text-[0.7rem] text-[0.55rem]">
+                    {likeCount}
+                  </span>
                 </div>{" "}
                 <div className=" hover:bg-zinc-200  md:w-14 text-center w-12 rounded-lg">
                   <BiDislike className="inline" />
@@ -67,7 +88,9 @@ const VideoDes = ({ videoId }) => {
               {viewCount} views{"  "}
               {description.publishedAt}
             </div>
-            <div className="font-semibold my-1">{description.description}</div>
+            <div className="font-semibold my-1">
+              {text}... <div className="cursor-pointer" onClick={() => desMagic()}>{readButton}</div>
+            </div>
             <div className="text-blue-600">
               <ul>
                 shadow-lg rounded-lg
