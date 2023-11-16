@@ -21,7 +21,7 @@ const Channel = ({ channelId }) => {
     channelDetails && (
       <div className="flex">
         <div>
-          <Link to={`/${channelDetails.snippet.customUrl}`}>
+          <Link to={`/${channelDetails.snippet.customUrl}/${channelId}`}>
             {" "}
             <img
               src={`${channelDetails.snippet.thumbnails.default.url}`}

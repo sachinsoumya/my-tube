@@ -47,7 +47,7 @@ const appRouter = createBrowserRouter([
         element:<Catagory />
       }
       ,{
-        path:"/:userName" ,
+        path:"/:userName/:id" ,
         element:<ChannelDetails />
       }
     ],

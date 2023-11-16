@@ -18,5 +18,10 @@ export const CATEGORY_VIDEOS_API = `https://youtube.googleapis.com/youtube/v3/vi
 
 export const CHANNEL_API = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&key=${GOOGLE_API_KEY}&id=`
 
+export const  CHANNEL_API_2 = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&key=${GOOGLE_API_KEY}&forUsername=`
+
+export const PLAYLIST_ITEM_API = `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&maxResults=25&key=${GOOGLE_API_KEY}&channelId=`
+
+
  
 export const OFFSET_LIVE_CHAT = 20 
