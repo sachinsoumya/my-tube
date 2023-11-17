@@ -1,4 +1,5 @@
 import React from 'react'
+import { RiPlayList2Fill } from "react-icons/ri";
 
 
 const VideoCart = ({info}) => {
@@ -31,6 +32,16 @@ export const AdVideoCard = ({info})=>{
 
     </div>
    
+  )
+}
+
+export const PlayListCard = ({info})=>{
+  return(
+    <div className='relative'>
+       <VideoCart info={info} />
+       <div className='text-gray-500 font-semibold px-2'>View playlist </div>
+       <div className='absolute lg:top-32 lg:left-48 left-40 top-28  bg-stone-700 text-white p-1 md:text-sm text-xs rounded-md font-semibold'><span className='inline-block pr-1'><RiPlayList2Fill /></span>{info.contentDetails.itemCount} videos</div>
+    </div>
   )
 }
 export default VideoCart

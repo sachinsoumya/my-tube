@@ -12,6 +12,7 @@ import CommentBox from "./Components/CommentBox";
 import SearchVideos from "./Components/SearchVideos";
 import Catagory from "./Components/Catagory";
 import ChannelDetails from "./Components/ChannelDetails";
+import PlaylistItems from "./Components/PlaylistItems";
 
 const appRouter = createBrowserRouter([
   {
@@ -49,6 +50,11 @@ const appRouter = createBrowserRouter([
       ,{
         path:"/:userName/:id" ,
         element:<ChannelDetails />
+      },
+      {
+        path:"/playlist",
+        element:<PlaylistItems />
+
       }
     ],
   },

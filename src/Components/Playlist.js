@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { PLAYLIST_ITEM_API } from "../Utils/Constant";
-import VideoCart from "./VideoCart";
+import VideoCart, { PlayListCard } from "./VideoCart";
+import { useSelector} from "react-redux";
+import {Link} from "react-router-dom"
 
 const Playlist = ({ channelId }) => {
   const [playlistItems, setPlaylistItems] = useState("");
+
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 
   useEffect(() => {
     getData();
@@ -24,13 +28,19 @@ const Playlist = ({ channelId }) => {
         <div className="text-gray-500 font-semibold text-xl px-2">
           Playlists
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 w-full">
+        {!isMenuOpen ? <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full">
           {playlistItems ? (
-            playlistItems.map((playlists) => <VideoCart info={playlists} />)
+            playlistItems.map((playlists) => <Link to={`/playlist?list=${playlists.id}`}><PlayListCard info={playlists} /></Link>)
           ) : (
             <div>No playlists</div>
           )}
-        </div>
+        </div>:<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full">
+          {playlistItems ? (
+            playlistItems.map((playlists) => <PlayListCard info={playlists} />)
+          ) : (
+            <div>No playlists</div>
+          )}
+        </div>}
       </div>
     )
   );
