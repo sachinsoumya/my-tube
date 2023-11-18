@@ -22,6 +22,7 @@ export const  CHANNEL_API_2 = `https://youtube.googleapis.com/youtube/v3/channel
 
 export const PLAYLIST_ITEM_API = `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&maxResults=25&key=${GOOGLE_API_KEY}&channelId=`
 
+export const PLAYLIST_LIST_API = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&key=${GOOGLE_API_KEY}`
 
  
 export const OFFSET_LIVE_CHAT = 20 
