@@ -35,17 +35,17 @@ const VideoContainer = () => {
       return (<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full">
       {searchResullts.map((video) => (
         <Link to={`/watch?v=${video.id.videoId}`} key={video.id}>
-          <VideoCart info={video} />
+          <VideoCart info={video}  />
         </Link>
       ))}
     </div>)
 
     }else{
     return videos && (
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full md:px-0 px-2 ">
         {videos.map((video) => (
           <Link to={`/watch?v=${video.id}`} key={video.id} onClick={()=>{dispatch(addLike(video.statistics))}}>
-            <VideoCart info={video} />
+            <VideoCart info={video}  />
           </Link>
         ))}
       </div>
@@ -68,7 +68,7 @@ const VideoContainer = () => {
     }else{
       
       return videos && (
-        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full">
+        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full md:px-0 px-2">
           {videos[0] && <AdVideoCard info={videos[0]}/>}
           {videos.map((video) => (
             <Link to={`/watch?v=${video.id}`}>
