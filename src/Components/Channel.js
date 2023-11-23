@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CHANNEL_API } from "../Utils/Constant";
 import { Link } from "react-router-dom";
+import Shimmer4 from "./Shimmer/Shimmer4";
 
 const Channel = ({ channelId }) => {
   const [channelDetails, setChannelDetails] = useState("");
@@ -14,11 +15,12 @@ const Channel = ({ channelId }) => {
     const json = await data.json();
     console.log(json);
     console.log(channelId);
-    setChannelDetails(json.items[0]);
+    // setChannelDetails(json.items[0]);
+    setChannelDetails("");
   };
 
   return (
-    channelDetails && (
+    channelDetails ? (
       <div className="flex">
         <div>
           <Link to={`/${channelDetails.snippet.customUrl}/${channelId}`}>
@@ -40,8 +42,8 @@ const Channel = ({ channelId }) => {
           </div>
         </div>
       </div>
-    )
-  );
+    ) :<Shimmer4 />
+  ) ;
 };
 
 export default Channel;

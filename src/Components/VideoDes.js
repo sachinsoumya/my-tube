@@ -89,7 +89,10 @@ const VideoDes = ({ videoId }) => {
               {description.publishedAt}
             </div>
             <div className="font-semibold my-1">
-              {text}... <div className="cursor-pointer" onClick={() => desMagic()}>{readButton}</div>
+              {text}...{" "}
+              <div className="cursor-pointer" onClick={() => desMagic()}>
+                {readButton}
+              </div>
             </div>
             <div className="text-blue-600">
               <ul>

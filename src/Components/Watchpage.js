@@ -4,6 +4,8 @@ import { closeMenu } from "../Utils/appSlice";
 import { Outlet, useSearchParams } from "react-router-dom";
 import VideoDes from "./VideoDes";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { searchResullts } from "../Utils/SearchValue"
 
 // import CommentBox from "./CommentBox";
 import { storeValue } from "../Utils/PropSlice";
@@ -11,6 +13,7 @@ import SuggestedVideos from "./SuggestedVideos";
 
 const Watchpage = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   // const [check, setCheck] = useState(false);
   // console.log(check);
   // console.log(searchParams.get("v"));
@@ -18,13 +21,25 @@ const Watchpage = () => {
   console.log(query);
   const dispatch = useDispatch();
   const videoId = useSelector((store)=>store.prop)
+  const searchResult = useSelector((store) => store.searchValue.results);
 
   useEffect(() => {
     dispatch(closeMenu());
     dispatch(storeValue(query)); 
+    if (searchResult) {
+     
+      dispatch(searchResullts(""));
+    }
+
     // setCheck(true);
     console.log("rerendering")
   }, [dispatch , query]);
+
+  if (searchResult) {
+    navigate('/')
+  } else {
+    console.log("hii");
+  }
   return (
     <div>
       <div className="grid lg:grid-cols-3 grid-cols-1 ">

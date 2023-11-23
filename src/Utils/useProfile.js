@@ -16,7 +16,7 @@ const useProfile = (channelId)=>{
         const data = await fetch(CHANNEL_API+channelId);
         const json = await data.json();
         console.log(json);
-        setProfile(json.items[0].snippet.thumbnails);
+        setProfile(json.items[0]);
 
     }
 

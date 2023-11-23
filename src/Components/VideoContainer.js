@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { YOUTUBE_API_KEY } from "../Utils/Constant";
-import VideoCart , {AdVideoCard} from "./VideoCart";
+import VideoCart, { AdVideoCard } from "./VideoCart";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addLike } from "../Utils/statSlice";
-
+import Shimmer1 from "./Shimmer/Shimmer1";
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
   const dispatch = useDispatch();
-  
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
   useEffect(() => {
     getVideos();
   }, []);
@@ -20,78 +20,88 @@ const VideoContainer = () => {
     const json = await data.json();
     console.log(json);
     setVideos(json.items);
+    // setVideos("");
   };
 
-  const searchResullts = useSelector((store)=>store.searchValue.results)
-  console.log(searchResullts.length)
-
- 
-    
-  
+  const searchResullts = useSelector((store) => store.searchValue.results);
+  console.log(searchResullts.length);
 
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
   if (!isMenuOpen) {
-    if(searchResullts.length!==0){
-      return (<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full">
-      {searchResullts.map((video) => (
-        <Link to={`/watch?v=${video.id.videoId}`} key={video.id}>
-          <VideoCart info={video}  />
-        </Link>
-      ))}
-    </div>)
-
-    }else{
-    return videos && (
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full md:px-0 px-2 ">
-        {videos.map((video) => (
-          <Link to={`/watch?v=${video.id}`} key={video.id} onClick={()=>{dispatch(addLike(video.statistics))}}>
-            <VideoCart info={video}  />
-          </Link>
-        ))}
-      </div>
-    );
-  }
-}
-  else{
-    if(searchResullts.length!==0){
+    if (searchResullts.length !== 0) {
       return (
-        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full ">
-          {/* {videos[0] && <AdVideoCard info={videos[0]}/>} */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full">
           {searchResullts.map((video) => (
-            <Link to={`/watch?v=${video.id.videoId}`} >
+            <Link to={`/watch?v=${video.id.videoId}`} key={video.id}>
               <VideoCart info={video} />
             </Link>
           ))}
         </div>
       );
-
-    }else{
-      
-      return videos && (
+    } else {
+      return videos ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full md:px-0 px-2 ">
+          {videos.map((video) => (
+            <Link
+              to={`/watch?v=${video.id}`}
+              key={video.id}
+              onClick={() => {
+                dispatch(addLike(video.statistics));
+              }}
+            >
+              <VideoCart info={video} />
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full md:px-0 px-2 gap-3">
+          {arr.map((item) => (
+            <Shimmer1 />
+          ))}
+        </div>
+      );
+    }
+  } else {
+    if (searchResullts.length !== 0) {
+      return (
+        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full ">
+          {/* {videos[0] && <AdVideoCard info={videos[0]}/>} */}
+          {searchResullts.map((video) => (
+            <Link to={`/watch?v=${video.id.videoId}`}>
+              <VideoCart info={video} />
+            </Link>
+          ))}
+        </div>
+      );
+    } else {
+      return videos ? (
         <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full md:px-0 px-2">
-          {videos[0] && <AdVideoCard info={videos[0]}/>}
+          {videos[0] && <AdVideoCard info={videos[0]} />}
           {videos.map((video) => (
             <Link to={`/watch?v=${video.id}`}>
               <VideoCart info={video} />
             </Link>
           ))}
         </div>
+      ) : (
+        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full md:px-0 px-2">
+          {arr.map((item) => (
+            <Shimmer1 />
+          ))}
+        </div>
       );
     }
-  // return videos && (
-  //   <div className="grid grid-cols-2  md:grid-cols-2 lg:grid-cols-4 ">
-  //     {videos[0] && <AdVideoCard info={videos[0]}/>}
-  //     {videos.map((video) => (
-  //       <Link to={`/watch?v=${video.id}`}>
-  //         <VideoCart info={video} />
-  //       </Link>
-  //     ))}
-  //   </div>
-  // );
+    // return videos && (
+    //   <div className="grid grid-cols-2  md:grid-cols-2 lg:grid-cols-4 ">
+    //     {videos[0] && <AdVideoCard info={videos[0]}/>}
+    //     {videos.map((video) => (
+    //       <Link to={`/watch?v=${video.id}`}>
+    //         <VideoCart info={video} />
+    //       </Link>
+    //     ))}
+    //   </div>
+    // );
+  }
 };
-}
 
 export default VideoContainer;
-
-
-

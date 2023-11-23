@@ -8,9 +8,19 @@ import { LiaDownloadSolid } from "react-icons/lia";
 import { IoIosPlay, IoIosShuffle } from "react-icons/io";
 import PlaylistVideos from "./PlaylistVideos";
 
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { searchResullts } from "../Utils/SearchValue";
+
+
+
 const PlaylistItems = () => {
   const [searchParams] = useSearchParams();
   const [listItems, setListItems] = useState("");
+  const searchResult = useSelector((store) => store.searchValue.results);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   console.log(searchParams);
 
@@ -18,7 +28,11 @@ const PlaylistItems = () => {
   const results = searchParams.get("results");
 
   useEffect(() => {
+
     getData();
+    if(searchResult){
+      dispatch(searchResullts(""))
+    }
   }, []);
 
   const getData = async () => {
@@ -31,6 +45,11 @@ const PlaylistItems = () => {
 
     setListItems(json.items);
   };
+
+  if(searchResult){
+    navigate("/")
+
+  }
 
   return (
     listItems && (

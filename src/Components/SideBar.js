@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CATEGORY_RESULTS_API } from "../Utils/Constant";
-import {AiOutlineHome} from 'react-icons/ai'
+import { AiOutlineHome } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { searchResullts } from "../Utils/SearchValue";
 
 
 export const SideBar = () => {
   const [list, setList] = useState("");
+  const dispatch = useDispatch();
+
+  const searchResult = useSelector((store) => store.searchValue.results);
 
   useEffect(() => {
     getData();
@@ -20,6 +25,12 @@ export const SideBar = () => {
     setList(json.items);
   };
 
+  const cleanState = () => {
+    if (searchResult.length) {
+      dispatch(searchResullts(""));
+    }
+  };
+
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 
   if (!isMenuOpen) return null;
@@ -27,11 +38,18 @@ export const SideBar = () => {
     <div className="px-3 md:px-7 shadow-lg  w-28 md:w-40 lg:w-48 ">
       <div className="font-medium py-2 text-xs md:text-base">
         <ul>
-          <Link to="/">
-            <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg"><AiOutlineHome  />Home</li>
+          <Link to="/" onClick={() => cleanState()}>
+            <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">
+              <AiOutlineHome />
+              Home
+            </li>
           </Link>
-          <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">Shorts</li>
-          <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">Subscription</li>
+          <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">
+            Shorts
+          </li>
+          <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">
+            Subscription
+          </li>
         </ul>
       </div>
       <div className="py-2">
@@ -44,7 +62,9 @@ export const SideBar = () => {
                   Number(item.id)
                 ) && (
                   <Link to={`/catagory/${item.id}`} key={item.id}>
-                    <li className="py-2 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">{item.snippet.title}</li>
+                    <li className="py-2 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">
+                      {item.snippet.title}
+                    </li>
                   </Link>
                 )
               );

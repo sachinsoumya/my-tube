@@ -20,7 +20,8 @@ const VideoCart = ({ info }) => {
       <div>
         <div className="text-sm md:text-base flex  p-1">
           <div>
-          <ProfileImage channelId={channelId} />
+            <ProfileImage channelId={channelId} />
+          
           
 
           </div>
