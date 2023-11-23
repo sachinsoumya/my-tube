@@ -3,24 +3,35 @@ import { YOUTUBE_API_KEY } from "../Utils/Constant";
 import SuggVideoCart from "./SuggVideoCart";
 import { Link } from "react-router-dom";
 import Shimmer2 from "./Shimmer/Shimmer2";
+import { arr } from "../Utils/Constant";
 
 const SuggestedVideos = () => {
   const [suggVideos, setSugVideos] = useState("");
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+  const [error , setError] = useState("");
+  const shimmer =arr ;
+
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
+    try {
+
+    
     const data = await fetch(YOUTUBE_API_KEY);
     const json = await data.json();
     console.log(json);
     setSugVideos(json.items);
+    }catch(error){
+      console.log(error.message);
+      setError(error.message);
+      
+    }
 
-    // setSugVideos("");
+    //setSugVideos("");
   };
 
-  return (
+  return !error && (
     <div>
       {suggVideos
         ? suggVideos.map((video) => (
@@ -30,7 +41,7 @@ const SuggestedVideos = () => {
               </Link>
             </div>
           ))
-        : arr.map((item) => <Shimmer2 />)}
+        : shimmer.map((item) => <Shimmer2 />)}
     </div>
   );
 };

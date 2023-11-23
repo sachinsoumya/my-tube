@@ -9,6 +9,7 @@ import { searchResullts } from "../Utils/SearchValue";
 
 export const SideBar = () => {
   const [list, setList] = useState("");
+  const [error , setError] = useState("");
   const dispatch = useDispatch();
 
   const searchResult = useSelector((store) => store.searchValue.results);
@@ -18,11 +19,16 @@ export const SideBar = () => {
   }, []);
 
   const getData = async () => {
+    try{
     const data = await fetch(CATEGORY_RESULTS_API);
     const json = await data.json();
 
     console.log(json.items);
     setList(json.items);
+    }catch(error){
+      console.log("error" + error.message);
+      setError(error.message);
+    }
   };
 
   const cleanState = () => {
@@ -34,7 +40,7 @@ export const SideBar = () => {
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 
   if (!isMenuOpen) return null;
-  return (
+  return !error && (
     <div className="px-3 md:px-7 shadow-lg  w-28 md:w-40 lg:w-48 ">
       <div className="font-medium py-2 text-xs md:text-base">
         <ul>

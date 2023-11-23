@@ -6,11 +6,13 @@ import { AiOutlineLike } from "react-icons/ai";
 import { PiShareFat } from "react-icons/pi";
 import { LiaDownloadSolid } from "react-icons/lia";
 import { BiDislike } from "react-icons/bi";
+import Shimmer4 from "./Shimmer/Shimmer4";
 
 const VideoDes = ({ videoId }) => {
   const [description, setDescription] = useState("");
   const [text, setText] = useState("");
   const [readButton, setReadButton] = useState("...more");
+  const [error , setError] = useState("");
   const analytics = useSelector((store) => store.statistics.statistics);
   // console.log(analytics)
   const { viewCount, likeCount, favoriteCount } = analytics;
@@ -25,11 +27,17 @@ const VideoDes = ({ videoId }) => {
   }, [videoId]);
 
   const getDescription = async (videoId) => {
+    try{
     const data = await fetch(VIDEO_DESCRIPTION_API + videoId);
     const json = await data.json();
     console.log(json);
     setDescription(json.items[0].snippet);
+    // setDescription("");
     setText(json.items[0].snippet.description.slice(0, 150));
+    }catch(error){
+      console.log(error.message);
+      setError(error.message);
+    }
   };
 
   // if(description){
@@ -47,9 +55,9 @@ const VideoDes = ({ videoId }) => {
     }
   };
 
-  return (
+  return  !error  ? (
     <div className="px-2">
-      {description && (
+      {description ? (
         <div>
           <div className="font-bold text-xl py-2">{description.title}</div>
           <div className="grid  md:grid-cols-2 grid-col-1  gap-4 w-full py-4">
@@ -105,8 +113,10 @@ const VideoDes = ({ videoId }) => {
             </div>
           </div>
         </div>
-      )}
+      ):<Shimmer4 />}
     </div>
+  ): (
+    <div>{error}</div>
   );
 };
 

@@ -26,3 +26,5 @@ export const PLAYLIST_LIST_API = `https://youtube.googleapis.com/youtube/v3/play
 
  
 export const OFFSET_LIVE_CHAT = 20 
+
+export const arr = [1,2,3,4,5,6,7,8,9,10];

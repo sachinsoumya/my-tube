@@ -10,7 +10,7 @@ const ChannelProfile = ({ details, statistics }) => {
 
   const { subscriberCount, videoCount, viewCount } = statistics;
 
-  const { high, medium } = thumbnails;
+  const { medium } = thumbnails;
 
   const updateComp = () => {
     if (text.length < description.length) {
@@ -61,7 +61,7 @@ const ChannelProfile = ({ details, statistics }) => {
           </div>
           <div>
             {text}
-            <sapn onClick={() => updateComp()}> {text && btn}</sapn>
+            <span onClick={() => updateComp()}> {text && btn}</span>
           </div>
           <div className="my-3">
             <button className="bg-black text-white w-24 p-2 border border-black rounded-full font-medium text-center">

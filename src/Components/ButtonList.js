@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
+ 
   return (
     <div
       className={className}
@@ -42,6 +43,7 @@ function SampleNextArrow(props) {
 }
 
 const ButtonList = () => {
+  const [error , setError] = useState("")
   const settings = {
     dots: true,
     infinite: true,
@@ -94,12 +96,18 @@ const ButtonList = () => {
   }, []);
 
   const getData = async () => {
+    try{
     const data = await fetch(CATEGORY_RESULTS_API);
     const json = await data.json();
 
     console.log(json.items);
 
     setVideoCategories(json.items);
+    }catch(error){
+      console.log("Error" + error.message);
+      setError(error.message)
+    
+    }
   };
 
   // const newValues=videoCategories.filter((item,index)=>{
@@ -111,8 +119,8 @@ const ButtonList = () => {
 
   // console.log(newValues);
 
-  return (
-    <div>
+  return !error && (
+     <div>
       {/* <Button name="All" />
       <Button name ="News" />
       <Button name="Music" />

@@ -7,52 +7,60 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { LiaDownloadSolid } from "react-icons/lia";
 import { IoIosPlay, IoIosShuffle } from "react-icons/io";
 import PlaylistVideos from "./PlaylistVideos";
+import { arr } from "../Utils/Constant";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { searchResullts } from "../Utils/SearchValue";
 
-
+import Shimmer2 from "./Shimmer/Shimmer2";
 
 const PlaylistItems = () => {
   const [searchParams] = useSearchParams();
   const [listItems, setListItems] = useState("");
+  const [error, setError] = useState("");
   const searchResult = useSelector((store) => store.searchValue.results);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   console.log(searchParams);
 
+  const shimmer = arr;
+
   const playlistId = searchParams.get("list");
   const results = searchParams.get("results");
 
   useEffect(() => {
-
     getData();
-    if(searchResult){
-      dispatch(searchResullts(""))
+    if (searchResult) {
+      dispatch(searchResullts(""));
     }
   }, []);
 
   const getData = async () => {
-    const data = await fetch(
-      `${PLAYLIST_LIST_API}&maxResults=${results}&playlistId=${playlistId} `
-    );
-    const json = await data.json();
+    try {
+      const data = await fetch(
+        `${PLAYLIST_LIST_API}&maxResults=${results}&playlistId=${playlistId} `
+      );
+      const json = await data.json();
 
-    console.log(json);
+      console.log(json);
 
-    setListItems(json.items);
+      setListItems(json.items);
+    } catch (error) {
+      console.log(error.message);
+      setError(error.message);
+    }
+    // setListItems("");
   };
 
-  if(searchResult){
-    navigate("/")
-
+  if (searchResult) {
+    navigate("/");
   }
 
-  return (
-    listItems && (
+  return !error ? (
+    listItems ? (
       <div className="md:px-2 px-0 ">
         <div className="grid lg:grid-cols-3 grid-cols-1 gap-2 py-3 ">
           <div className="lg:h-screen bg-gradient-to-b from-blue-300 rounded-lg py-2 my-2 ">
@@ -102,7 +110,7 @@ const PlaylistItems = () => {
           </div>
 
           <div className="col-span-2">
-            {listItems &&
+            {listItems ? (
               listItems.map((item) => (
                 <Link
                   to={`/watch?v=${item.snippet.resourceId.videoId}`}
@@ -110,11 +118,30 @@ const PlaylistItems = () => {
                 >
                   <PlaylistVideos list={item} />
                 </Link>
-              ))}
+              ))
+            ) : (
+              <Shimmer2 />
+            )}
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div className="md:px-2 px-0 ">
+        <div className="grid lg:grid-cols-3 grid-cols-1 gap-2 py-3 ">
+          <div className="py-2 px-2">
+            <div className="bg-slate-400 w-full h-72 rounded-lg shadow-lg "></div>
+          </div>
+
+          <div className="col-span-2">
+            {shimmer.map((item) => (
+              <Shimmer2 />
+            ))}
           </div>
         </div>
       </div>
     )
+  ) : (
+    <div>{error}</div>
   );
 };
 

@@ -1,26 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { CHANNEL_API } from "../Utils/Constant";
 import { Link } from "react-router-dom";
-import Shimmer4 from "./Shimmer/Shimmer4";
+
 
 const Channel = ({ channelId }) => {
   const [channelDetails, setChannelDetails] = useState("");
+  const [error , setError] = useState("");
 
   useEffect(() => {
     getData(channelId);
   }, [channelId]);
 
   const getData = async (channelId) => {
+    try {
+
+    
     const data = await fetch(CHANNEL_API + channelId);
     const json = await data.json();
     console.log(json);
     console.log(channelId);
-    // setChannelDetails(json.items[0]);
-    setChannelDetails("");
+    setChannelDetails(json.items[0]);
+    }catch(error){
+      console.log(error.message);
+      setError(error.message);
+
+    }
+    // setChannelDetails("");
   };
 
-  return (
-    channelDetails ? (
+  return !error ? (
+    channelDetails && (
       <div className="flex">
         <div>
           <Link to={`/${channelDetails.snippet.customUrl}/${channelId}`}>
@@ -42,8 +51,12 @@ const Channel = ({ channelId }) => {
           </div>
         </div>
       </div>
-    ) :<Shimmer4 />
-  ) ;
+    ) 
+  ) : (
+    <div>
+      {error.message}
+    </div>
+  );
 };
 
 export default Channel;
