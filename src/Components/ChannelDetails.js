@@ -7,6 +7,7 @@ import { searchResullts } from "../Utils/SearchValue";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import Error from "./Error";
 
 const ChannelDetails = () => {
   const [profile, setProfile] = useState("");
@@ -53,7 +54,7 @@ const ChannelDetails = () => {
       </div>
     
   ) : (
-    <div>{error}</div>
+    <div><Error error={error}/></div>
   );
 };
 

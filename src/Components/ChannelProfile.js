@@ -61,7 +61,7 @@ const ChannelProfile = ({ details, statistics }) => {
           </div>
           <div>
             {text}
-            <span onClick={() => updateComp()}> {text && btn}</span>
+            <span className="cursor-pointer" onClick={() => updateComp()}> {text && btn}</span>
           </div>
           <div className="my-3">
             <button className="bg-black text-white w-24 p-2 border border-black rounded-full font-medium text-center">

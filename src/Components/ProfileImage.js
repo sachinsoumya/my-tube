@@ -3,7 +3,7 @@ import useProfile from "../Utils/useProfile";
 import { Link } from "react-router-dom";
 
 const ProfileImage = ({ channelId }) => {
-  console.log(channelId);
+  // console.log(channelId);---channelId
 
   const profileImage = useProfile(channelId);
 

@@ -8,6 +8,7 @@ import { arr } from "../Utils/Constant";
 
 const Playlist = ({ channelId }) => {
   const [playlistItems, setPlaylistItems] = useState("");
+  const [error , setError] = useState("");
   const shimmer = arr;
 
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
@@ -17,16 +18,22 @@ const Playlist = ({ channelId }) => {
   }, []);
 
   const getData = async () => {
+    try{
     const data = await fetch(PLAYLIST_ITEM_API + channelId);
 
     const json = await data.json();
 
     console.log(json);
     setPlaylistItems(json.items);
+    }catch(error){
+      console.log(error.message);
+      setError(error.message);
+
+    }
     // setPlaylistItems("");
   };
 
-  return (
+  return !error && (
     <div>
       <div className="text-gray-500 font-semibold text-xl px-2">Playlists</div>
 

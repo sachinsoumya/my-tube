@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { searchResullts } from "../Utils/SearchValue";
+import Error from "./Error";
 
 const Catagory = () => {
   const [catVideos, setCatVideos] = useState("");
+  const [error , setError] = useState("");
   // const [check , setCheck] = useState(false);
 
   const searchResult = useSelector((store) => store.searchValue.results);
@@ -32,12 +34,17 @@ const Catagory = () => {
   }, [id]);
 
   const getData = async (id) => {
+    try{
     const data = await fetch(`${CATEGORY_VIDEOS_API}${id}`);
     const json = await data.json();
 
     console.log(json);
 
     setCatVideos(json.items);
+    }catch(error){
+      console.log(error.message);
+      setError(error.message);
+    }
   };
 
   const goNavigate = () => {
@@ -51,7 +58,7 @@ const Catagory = () => {
     console.log("hii");
   }
 
-  return (
+  return !error ? (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 w-full">
       {catVideos &&
         catVideos.map((item) => {
@@ -61,6 +68,10 @@ const Catagory = () => {
             </Link>
           );
         })}
+    </div>
+  ): (
+    <div>
+      <Error  error={error}/>
     </div>
   );
 };

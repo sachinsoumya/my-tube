@@ -7,6 +7,7 @@ import { PiShareFat } from "react-icons/pi";
 import { LiaDownloadSolid } from "react-icons/lia";
 import { BiDislike } from "react-icons/bi";
 import Shimmer4 from "./Shimmer/Shimmer4";
+import Error from "./Error";
 
 const VideoDes = ({ videoId }) => {
   const [description, setDescription] = useState("");
@@ -15,11 +16,11 @@ const VideoDes = ({ videoId }) => {
   const [error , setError] = useState("");
   const analytics = useSelector((store) => store.statistics.statistics);
   // console.log(analytics)
-  const { viewCount, likeCount, favoriteCount } = analytics;
+  const { viewCount, likeCount } = analytics;
 
-  console.log(viewCount);
-  console.log(likeCount);
-  console.log(favoriteCount);
+  // console.log(viewCount);
+  // console.log(likeCount);
+  // console.log(favoriteCount);
 
   console.log(videoId);
   useEffect(() => {
@@ -30,12 +31,12 @@ const VideoDes = ({ videoId }) => {
     try{
     const data = await fetch(VIDEO_DESCRIPTION_API + videoId);
     const json = await data.json();
-    console.log(json);
+    // console.log(json);--api call data
     setDescription(json.items[0].snippet);
     // setDescription("");
     setText(json.items[0].snippet.description.slice(0, 150));
     }catch(error){
-      console.log(error.message);
+      // console.log(error.message); - error message 
       setError(error.message);
     }
   };
@@ -116,7 +117,7 @@ const VideoDes = ({ videoId }) => {
       ):<Shimmer4 />}
     </div>
   ): (
-    <div>{error}</div>
+    <div><Error error={error}/></div>
   );
 };
 

@@ -6,11 +6,13 @@ import { YOUTUBE_SEARCH_API } from "../Utils/Constant";
 import { cacheResult } from "../Utils/SearchSlice";
 import { searchResullts } from "../Utils/SearchValue";
 import { SEARCH_RESULTS_API } from "../Utils/Constant";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 export const Head = () => {
   const [searchQuery, setsearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState("");
   const [searchValue, setSearchValue] = useState(false);
+  const [error, setError] = useState("");
   console.log(searchValue);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchCache = useSelector((store) => store.search);
@@ -40,17 +42,22 @@ export const Head = () => {
   }, [searchQuery]);
 
   const getSuggestions = async () => {
-    console.log("Api Call -" + searchQuery);
-    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-    const json = await data.json();
-    setSuggestions(json[1]);
-    console.log(json[1]);
+    try {
+      console.log("Api Call -" + searchQuery);
+      const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+      const json = await data.json();
+      setSuggestions(json[1]);
+      console.log(json[1]);
 
-    dispatch(
-      cacheResult({
-        [searchQuery]: json[1],
-      })
-    );
+      dispatch(
+        cacheResult({
+          [searchQuery]: json[1],
+        })
+      );
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    }
   };
 
   const toggleMenuHandler = () => {
@@ -68,28 +75,19 @@ export const Head = () => {
     }
 
     apiCall(item);
-
-   
   };
 
-
-  const apiCall = async(value)=>{
-   const data = await fetch(`${SEARCH_RESULTS_API}${value}`)
-   const json = await data.json();
+  const apiCall = async (value) => {
+    const data = await fetch(`${SEARCH_RESULTS_API}${value}`);
+    const json = await data.json();
     console.log(json);
 
-    dispatch(
-      searchResullts(json.items)
-    );
-
-
-
-    
-  }
+    dispatch(searchResullts(json.items));
+  };
 
   return (
-    <div className="grid grid-cols-6 justify-between gap-x-9 pb-2 pt-1 px-0 lg:px-4 md:gap-x-14 shadow-xl">
-      <div className="flex">
+    <div className="grid grid-cols-6  gap-x-9 pb-2 pt-1 px-0 lg:px-4 md:gap-x-14 shadow-xl">
+      <div className="flex ">
         <img
           src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2012/10/threelines.png"
           alt="hamburgericon"
@@ -98,9 +96,9 @@ export const Head = () => {
         />
 
         <img
-          src="https://cdn.mos.cms.futurecdn.net/8gzcr6RpGStvZFA2qRt4v6-1200-80.jpg"
+          src="https://t3.ftcdn.net/jpg/04/09/83/66/360_F_409836622_TRZxeID3QUi3gqecV0V1TQiCYEskG61a.jpg"
           alt="YoutubeLogo"
-          className="w-14 h-8  lg:w-28 lg:h-12 md:h-10"
+          className="w-14 h-8  lg:w-16 lg:h-12 md:h-10"
         />
       </div>
 
@@ -119,7 +117,7 @@ export const Head = () => {
           🔍
         </button>
 
-        {showSuggestions && (
+        {!error && showSuggestions && (
           <div className="fixed w-40 md:w-96 lg:w-3/6 bg-white p-2 rounded-lg mt-2 shadow-md border border-gray-200 ">
             <ul>
               {suggestions &&

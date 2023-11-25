@@ -4,11 +4,14 @@ import SuggVideoCart from "./SuggVideoCart";
 import { Link } from "react-router-dom";
 import Shimmer2 from "./Shimmer/Shimmer2";
 import { arr } from "../Utils/Constant";
+import { useDispatch } from "react-redux";
+import { addLike } from "../Utils/statSlice";
 
 const SuggestedVideos = () => {
   const [suggVideos, setSugVideos] = useState("");
-  const [error , setError] = useState("");
-  const shimmer =arr ;
+  const dispatch = useDispatch();
+  const [error, setError] = useState("");
+  const shimmer = arr;
 
   useEffect(() => {
     getData();
@@ -16,33 +19,37 @@ const SuggestedVideos = () => {
 
   const getData = async () => {
     try {
-
-    
-    const data = await fetch(YOUTUBE_API_KEY);
-    const json = await data.json();
-    console.log(json);
-    setSugVideos(json.items);
-    }catch(error){
+      const data = await fetch(YOUTUBE_API_KEY);
+      const json = await data.json();
+      console.log(json);
+      setSugVideos(json.items);
+    } catch (error) {
       console.log(error.message);
       setError(error.message);
-      
     }
 
     //setSugVideos("");
   };
 
-  return !error && (
-    <div>
-      {suggVideos
-        ? suggVideos.map((video) => (
-            <div key={video.id}>
-              <Link to={`/watch?v=${video.id}`}>
-                <SuggVideoCart data={video} />
-              </Link>
-            </div>
-          ))
-        : shimmer.map((item) => <Shimmer2 />)}
-    </div>
+  return (
+    !error && (
+      <div>
+        {suggVideos
+          ? suggVideos.map((video) => (
+              <div key={video.id}>
+                <Link
+                  to={`/watch?v=${video.id}`}
+                  onClick={() => {
+                    dispatch(addLike(video.statistics));
+                  }}
+                >
+                  <SuggVideoCart data={video} />
+                </Link>
+              </div>
+            ))
+          : shimmer.map((item) => <Shimmer2 />)}
+      </div>
+    )
   );
 };
 

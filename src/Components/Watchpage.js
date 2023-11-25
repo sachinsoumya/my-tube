@@ -18,7 +18,7 @@ const Watchpage = () => {
   // console.log(check);
   // console.log(searchParams.get("v"));
   const query = searchParams.get("v");
-  console.log(query);
+  // console.log(query); ---search query
   const dispatch = useDispatch();
   const videoId = useSelector((store)=>store.prop)
   const searchResult = useSelector((store) => store.searchValue.results);

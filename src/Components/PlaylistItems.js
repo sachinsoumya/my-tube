@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { searchResullts } from "../Utils/SearchValue";
 
 import Shimmer2 from "./Shimmer/Shimmer2";
+import Error from "./Error";
 
 const PlaylistItems = () => {
   const [searchParams] = useSearchParams();
@@ -100,7 +101,11 @@ const PlaylistItems = () => {
               </div>
               <div className="flex md:w-72 w-52  mx-auto justify-between py-3 text-center">
                 <div className="rounded-lg bg-slate-400 p-3 w-2/4 hover:bg-slate-600 cursor-pointer">
-                  <IoIosPlay className="inline" /> play all
+                  <Link
+                    to={`/watch?v=${listItems[0].snippet.resourceId.videoId}`}
+                  >
+                    <IoIosPlay className="inline" /> play all
+                  </Link>
                 </div>
                 <div className="rounded-lg bg-slate-400 p-3 w-2/4 ml-2 hover:bg-slate-600 cursor-pointer">
                   <IoIosShuffle className="inline" /> shuffle
@@ -141,7 +146,9 @@ const PlaylistItems = () => {
       </div>
     )
   ) : (
-    <div>{error}</div>
+    <div>
+      <Error error={error} />
+    </div>
   );
 };
 

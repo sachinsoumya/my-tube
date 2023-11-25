@@ -17,8 +17,8 @@ const Channel = ({ channelId }) => {
     
     const data = await fetch(CHANNEL_API + channelId);
     const json = await data.json();
-    console.log(json);
-    console.log(channelId);
+    // console.log(json);---api call data
+    // console.log(channelId);--channelId
     setChannelDetails(json.items[0]);
     }catch(error){
       console.log(error.message);

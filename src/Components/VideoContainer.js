@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addLike } from "../Utils/statSlice";
 import Shimmer1 from "./Shimmer/Shimmer1";
 import { arr } from "../Utils/Constant";
+import Error from "./Error";
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
@@ -21,17 +22,17 @@ const VideoContainer = () => {
     try {
       const data = await fetch(YOUTUBE_API_KEY);
       const json = await data.json();
-      console.log(json);
+      // console.log(json);--api call data
       setVideos(json.items);
     } catch (error) {
-      console.log("Error" + error.message);
+      // console.log("Error" + error.message); -- error message
       setError(error.message);
     }
     // setVideos("");
   };
 
   const searchResullts = useSelector((store) => store.searchValue.results);
-  console.log(searchResullts.length);
+  // console.log(searchResullts.length);--searchResult length
 
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
   if (!error) {
@@ -40,7 +41,13 @@ const VideoContainer = () => {
         return (
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 w-full">
             {searchResullts.map((video) => (
-              <Link to={`/watch?v=${video.id.videoId}`} key={video.id}>
+              <Link
+                to={`/watch?v=${video.id.videoId}`}
+                key={video.id}
+                onClick={() => {
+                  dispatch(addLike(video.statistics));
+                }}
+              >
                 <VideoCart info={video} />
               </Link>
             ))}
@@ -75,7 +82,12 @@ const VideoContainer = () => {
           <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full ">
             {/* {videos[0] && <AdVideoCard info={videos[0]}/>} */}
             {searchResullts.map((video) => (
-              <Link to={`/watch?v=${video.id.videoId}`}>
+              <Link
+                to={`/watch?v=${video.id.videoId}`}
+                onClick={() => {
+                  dispatch(addLike(video.statistics));
+                }}
+              >
                 <VideoCart info={video} />
               </Link>
             ))}
@@ -86,7 +98,12 @@ const VideoContainer = () => {
           <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full md:px-0 px-2">
             {videos[0] && <AdVideoCard info={videos[0]} />}
             {videos.map((video) => (
-              <Link to={`/watch?v=${video.id}`}>
+              <Link
+                to={`/watch?v=${video.id}`}
+                onClick={() => {
+                  dispatch(addLike(video.statistics));
+                }}
+              >
                 <VideoCart info={video} />
               </Link>
             ))}
@@ -111,7 +128,11 @@ const VideoContainer = () => {
       // );
     }
   } else {
-    return <div>{error}</div>;
+    return (
+      <div>
+        <Error error={error} />
+      </div>
+    );
   }
 };
 
