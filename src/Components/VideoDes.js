@@ -16,7 +16,7 @@ const VideoDes = ({ videoId }) => {
   const [error , setError] = useState("");
   const analytics = useSelector((store) => store.statistics.statistics);
   // console.log(analytics)
-  const { viewCount, likeCount } = analytics;
+  const { viewCount, likeCount } = analytics ;
 
   // console.log(viewCount);
   // console.log(likeCount);
@@ -95,7 +95,7 @@ const VideoDes = ({ videoId }) => {
           <div className="bg-zinc-300  w-full py-4 shadow-lg rounded-lg">
             <div className="font-semibold text-sm my-1">
               {viewCount} views{"  "}
-              {description.publishedAt}
+              {new Date(description.publishedAt).toLocaleDateString()} {" "} {new Date(description.publishedAt).toLocaleTimeString()};
             </div>
             <div className="font-semibold my-1">
               {text}...{" "}

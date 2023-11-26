@@ -31,6 +31,12 @@ const VideoContainer = () => {
     // setVideos("");
   };
 
+const statistics = {
+  viewCount : " ",
+  likeCount : " "
+
+}
+
   const searchResullts = useSelector((store) => store.searchValue.results);
   // console.log(searchResullts.length);--searchResult length
 
@@ -45,7 +51,7 @@ const VideoContainer = () => {
                 to={`/watch?v=${video.id.videoId}`}
                 key={video.id}
                 onClick={() => {
-                  dispatch(addLike(video.statistics));
+                  dispatch(addLike(statistics));
                 }}
               >
                 <VideoCart info={video} />
@@ -85,7 +91,7 @@ const VideoContainer = () => {
               <Link
                 to={`/watch?v=${video.id.videoId}`}
                 onClick={() => {
-                  dispatch(addLike(video.statistics));
+                  dispatch(addLike(statistics));
                 }}
               >
                 <VideoCart info={video} />
@@ -96,7 +102,7 @@ const VideoContainer = () => {
       } else {
         return videos ? (
           <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full md:px-0 px-2">
-            {videos[0] && <AdVideoCard info={videos[0]} />}
+            {videos[10] && <AdVideoCard info={videos[10]} />}
             {videos.map((video) => (
               <Link
                 to={`/watch?v=${video.id}`}

@@ -13,6 +13,7 @@ import SearchVideos from "./Components/SearchVideos";
 import Catagory from "./Components/Catagory";
 import ChannelDetails from "./Components/ChannelDetails";
 import PlaylistItems from "./Components/PlaylistItems";
+import About from "./Components/About";
 
 const appRouter = createBrowserRouter([
   {
@@ -55,6 +56,11 @@ const appRouter = createBrowserRouter([
         path:"/playlist",
         element:<PlaylistItems />
 
+      } ,
+
+      {
+        path:"/about",
+        element:<About />
       }
     ],
   },

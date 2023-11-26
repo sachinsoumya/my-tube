@@ -49,6 +49,10 @@ export const SideBar = () => {
               <AiOutlineHome />
               Home
             </li>
+            <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">
+            
+             <Link to="/about">About</Link> 
+            </li>
           </Link>
           <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">
             Shorts

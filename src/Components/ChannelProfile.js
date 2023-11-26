@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const ChannelProfile = ({ details, statistics }) => {
   console.log(details);
 
-  const [btn, setBtn] = useState("more");
+  const [btn, setBtn] = useState("more...");
   const { customUrl, description, title, thumbnails, country } = details;
 
   const [text, setText] = useState(description.slice(0, 150));
