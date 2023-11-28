@@ -4,15 +4,20 @@ import { Link, useParams } from "react-router-dom";
 import VideoCart from "./VideoCart";
 import { useSelector } from "react-redux";
 
+import { addLike } from "../Utils/statSlice";
+
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { searchResullts } from "../Utils/SearchValue";
 import Error from "./Error";
+import Shimmer1 from "./Shimmer/Shimmer2";
+import { arr } from "../Utils/Constant";
 
 const Catagory = () => {
   const [catVideos, setCatVideos] = useState("");
-  const [error , setError] = useState("");
+  const [error, setError] = useState("");
+  const shimmer = arr;
   // const [check , setCheck] = useState(false);
 
   const searchResult = useSelector((store) => store.searchValue.results);
@@ -27,22 +32,21 @@ const Catagory = () => {
 
     console.log("Hello");
     if (searchResult) {
-     
       dispatch(searchResullts(""));
     }
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [id]);
 
   const getData = async (id) => {
-    try{
-    const data = await fetch(`${CATEGORY_VIDEOS_API}${id}`);
-    const json = await data.json();
+    try {
+      const data = await fetch(`${CATEGORY_VIDEOS_API}${id}`);
+      const json = await data.json();
 
-    console.log(json);
+      // console.log(json);  datas from api
 
-    setCatVideos(json.items);
-    }catch(error){
-      console.log(error.message);
+      setCatVideos(json.items);
+    } catch (error) {
+      // console.log(error.message); error message
       setError(error.message);
     }
   };
@@ -55,23 +59,35 @@ const Catagory = () => {
   if (searchResult) {
     goNavigate();
   } else {
-    console.log("hii");
+    // console.log("hii");
   }
+
+  const statistics = {
+    viewCount: "No records",
+    likeCount: "No records",
+  };
 
   return !error ? (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 w-full">
-      {catVideos &&
-        catVideos.map((item) => {
-          return (
-            <Link to={`/watch?v=${item.id}`}>
-              <VideoCart info={item} />
-            </Link>
-          );
-        })}
+      {catVideos
+        ? catVideos.map((item) => {
+            return (
+              <Link
+                to={`/watch?v=${item.id}`}
+                key={item.id}
+                onClick={() => {
+                  dispatch(addLike(statistics));
+                }}
+              >
+                <VideoCart info={item} />
+              </Link>
+            );
+          })
+        : shimmer.map((item, index) => <Shimmer1 key={index} />)}
     </div>
-  ): (
+  ) : (
     <div>
-      <Error  error={error}/>
+      <Error error={error} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 
 const TopComment = ({ data }) => {
-  console.log(data);
+  // console.log(data);-props data
   const {
     textDisplay,
     authorDisplayName,

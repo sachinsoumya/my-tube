@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { CHANNEL_API } from "../Utils/Constant";
 import { Link } from "react-router-dom";
 
-
 const Channel = ({ channelId }) => {
   const [channelDetails, setChannelDetails] = useState("");
-  const [error , setError] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     getData(channelId);
@@ -13,17 +12,14 @@ const Channel = ({ channelId }) => {
 
   const getData = async (channelId) => {
     try {
-
-    
-    const data = await fetch(CHANNEL_API + channelId);
-    const json = await data.json();
-    // console.log(json);---api call data
-    // console.log(channelId);--channelId
-    setChannelDetails(json.items[0]);
-    }catch(error){
+      const data = await fetch(CHANNEL_API + channelId);
+      const json = await data.json();
+      // console.log(json);---api call data
+      // console.log(channelId);--channelId
+      setChannelDetails(json.items[0]);
+    } catch (error) {
       console.log(error.message);
       setError(error.message);
-
     }
     // setChannelDetails("");
   };
@@ -51,11 +47,9 @@ const Channel = ({ channelId }) => {
           </div>
         </div>
       </div>
-    ) 
+    )
   ) : (
-    <div>
-      {error.message}
-    </div>
+    <div>{error.message}</div>
   );
 };
 

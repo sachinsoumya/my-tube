@@ -21,10 +21,10 @@ const SuggestedVideos = () => {
     try {
       const data = await fetch(YOUTUBE_API_KEY);
       const json = await data.json();
-      console.log(json);
+      // console.log(json); datas coming from api
       setSugVideos(json.items);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message); error message
       setError(error.message);
     }
 
@@ -47,7 +47,7 @@ const SuggestedVideos = () => {
                 </Link>
               </div>
             ))
-          : shimmer.map((item) => <Shimmer2 />)}
+          : shimmer.map((item ,index) => <Shimmer2 key={index} />)}
       </div>
     )
   );

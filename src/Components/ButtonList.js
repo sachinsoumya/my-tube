@@ -100,11 +100,11 @@ const ButtonList = () => {
     const data = await fetch(CATEGORY_RESULTS_API);
     const json = await data.json();
 
-    console.log(json.items);
+    // console.log(json.items); datas coming from api
 
     setVideoCategories(json.items);
     }catch(error){
-      console.log("Error" + error.message);
+      // console.log("Error" + error.message); error message
       setError(error.message)
     
     }

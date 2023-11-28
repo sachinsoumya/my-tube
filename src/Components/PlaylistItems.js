@@ -37,6 +37,7 @@ const PlaylistItems = () => {
     if (searchResult) {
       dispatch(searchResullts(""));
     }
+    // eslint-disable-next-line
   }, []);
 
   const getData = async () => {
@@ -46,11 +47,11 @@ const PlaylistItems = () => {
       );
       const json = await data.json();
 
-      console.log(json);
+      // console.log(json); datas coming from api
 
       setListItems(json.items);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message); error message
       setError(error.message);
     }
     // setListItems("");
@@ -81,7 +82,7 @@ const PlaylistItems = () => {
 
               <div className="text-xs md:py-2 py-1 px-2 font-semibold text-gray-500">
                 {listItems.length} videos{" "}
-                <span className="px-2">{listItems[0].snippet.publishedAt}</span>
+                <span className="px-2"> {new Date(listItems[0].snippet.publishedAt).toLocaleDateString()} {" "} {new Date(listItems[0].snippet.publishedAt).toLocaleTimeString()}</span>
               </div>
 
               <div className="flex justify-between w-52 mx-auto py-2">
@@ -138,8 +139,8 @@ const PlaylistItems = () => {
           </div>
 
           <div className="col-span-2">
-            {shimmer.map((item) => (
-              <Shimmer2 />
+            {shimmer.map((item , index) => (
+              <Shimmer2 key={index} />
             ))}
           </div>
         </div>

@@ -14,19 +14,19 @@ const Playlist = ({ channelId }) => {
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData(channelId);
+  }, [channelId]);
 
-  const getData = async () => {
+  const getData = async (channelId) => {
     try{
     const data = await fetch(PLAYLIST_ITEM_API + channelId);
 
     const json = await data.json();
 
-    console.log(json);
+    // console.log(json);  datas from api
     setPlaylistItems(json.items);
     }catch(error){
-      console.log(error.message);
+      // console.log(error.message); error message
       setError(error.message);
 
     }
@@ -42,24 +42,24 @@ const Playlist = ({ channelId }) => {
           {playlistItems
             ? playlistItems.map((playlists) => (
                 <Link
-                  to={`/playlist?list=${playlists.id}&results=${playlists.contentDetails.itemCount}`}
+                  to={`/playlist?list=${playlists.id}&results=${playlists.contentDetails.itemCount}`} key={playlists.id}
                 >
                   <PlayListCard info={playlists} />
                 </Link>
               ))
-            : shimmer.map((item) => <Shimmer1 />)}
+            : shimmer.map((item , index) => <Shimmer1 key={index} />)}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full gap-3 md:px-0 px-2 ">
           {playlistItems
             ? playlistItems.map((playlists) => (
                 <Link
-                  to={`/playlist?list=${playlists.id}&results=${playlists.contentDetails.itemCount}`}
+                  to={`/playlist?list=${playlists.id}&results=${playlists.contentDetails.itemCount}`} key={playlists.id}
                 >
                   <PlayListCard info={playlists} />
                 </Link>
               ))
-            : shimmer.map((item) => <Shimmer1 />)}
+            : shimmer.map((item , index) => <Shimmer1 key={index} />)}
         </div>
       )}
     </div>

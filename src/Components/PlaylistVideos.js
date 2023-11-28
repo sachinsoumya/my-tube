@@ -16,12 +16,12 @@ const PlaylistVideos = ({ list }) => {
         </div>
 
         <div className="text-black w-full px-2">
-          <div className="text-sm md:text-base font-medium md:font-bold">
+          <div className="text-sm md:text-base font-medium md:font-semibold">
             {title}
           </div>
 
           <div className="text-xs py-2 text-gray-600">
-            {channelTitle} <span className="px-2">{publishedAt}</span>
+            {channelTitle} <span className="px-2">{new Date(publishedAt).toLocaleDateString()} {" "} {new Date(publishedAt).toLocaleTimeString()}</span>
           </div>
           {/* <div className="text-xs">{viewCount} views</div> */}
         </div>

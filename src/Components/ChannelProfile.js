@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const ChannelProfile = ({ details, statistics }) => {
-  console.log(details);
+  // console.log(details); props value
 
   const [btn, setBtn] = useState("more...");
   const { customUrl, description, title, thumbnails, country } = details;
@@ -18,7 +18,7 @@ const ChannelProfile = ({ details, statistics }) => {
       setBtn("less");
     } else {
       setText(description.slice(0, 150));
-      setBtn("more");
+      setBtn("more...");
     }
   };
 
@@ -29,7 +29,7 @@ const ChannelProfile = ({ details, statistics }) => {
           <img
             src={`${medium.url}`}
             alt="profile"
-            className="rounded-full border border-slate-200 "
+            className="rounded-full border border-slate-200 shadow-md"
           />
         </div>
 

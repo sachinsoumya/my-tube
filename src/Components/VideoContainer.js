@@ -32,8 +32,8 @@ const VideoContainer = () => {
   };
 
 const statistics = {
-  viewCount : " ",
-  likeCount : " "
+  viewCount : "123443",
+  likeCount : "124456"
 
 }
 
@@ -93,6 +93,7 @@ const statistics = {
                 onClick={() => {
                   dispatch(addLike(statistics));
                 }}
+                key={video.id}
               >
                 <VideoCart info={video} />
               </Link>
@@ -109,6 +110,7 @@ const statistics = {
                 onClick={() => {
                   dispatch(addLike(video.statistics));
                 }}
+                key={video.id}
               >
                 <VideoCart info={video} />
               </Link>
@@ -116,8 +118,8 @@ const statistics = {
           </div>
         ) : (
           <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 w-full md:px-0 px-2">
-            {shimmer.map((item) => (
-              <Shimmer1 />
+            {shimmer.map((item , index) => (
+              <Shimmer1 key ={index}/>
             ))}
           </div>
         );

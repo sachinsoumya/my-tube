@@ -6,7 +6,6 @@ import { YOUTUBE_SEARCH_API } from "../Utils/Constant";
 import { cacheResult } from "../Utils/SearchSlice";
 import { searchResullts } from "../Utils/SearchValue";
 import { SEARCH_RESULTS_API } from "../Utils/Constant";
-import { RxHamburgerMenu } from "react-icons/rx";
 
 export const Head = () => {
   const [searchQuery, setsearchQuery] = useState("");
@@ -39,6 +38,7 @@ export const Head = () => {
     return () => {
       clearInterval(timer);
     };
+    // eslint-disable-next-line
   }, [searchQuery]);
 
   const getSuggestions = async () => {
@@ -47,7 +47,7 @@ export const Head = () => {
       const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
       const json = await data.json();
       setSuggestions(json[1]);
-      console.log(json[1]);
+      // console.log(json[1]); datas coming from api
 
       dispatch(
         cacheResult({
@@ -55,7 +55,7 @@ export const Head = () => {
         })
       );
     } catch (error) {
-      console.log(error);
+      // console.log(error); error
       setError(error.message);
     }
   };
@@ -80,7 +80,7 @@ export const Head = () => {
   const apiCall = async (value) => {
     const data = await fetch(`${SEARCH_RESULTS_API}${value}`);
     const json = await data.json();
-    console.log(json);
+    // console.log(json); datas coming from api
 
     dispatch(searchResullts(json.items));
   };

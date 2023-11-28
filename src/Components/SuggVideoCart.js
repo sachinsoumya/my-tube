@@ -2,7 +2,7 @@ import React from "react";
 
 const SuggVideoCart = ({ data }) => {
   const { channelTitle, title, thumbnails } = data.snippet;
-  const { viewCount, divkeCount } = data.statistics;
+  const { viewCount} = data.statistics;
   const { medium } = thumbnails;
 
   return (
@@ -14,7 +14,7 @@ const SuggVideoCart = ({ data }) => {
           </div>
 
           <div className="text-black w-full pl-1">
-            <div className="text-sm md:text-base font-medium md:font-bold">
+            <div className="text-sm md:text-base font-medium md:font-semibold">
               {title}
             </div>
 

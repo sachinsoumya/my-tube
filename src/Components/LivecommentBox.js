@@ -12,6 +12,7 @@ export const LivecommentBox = () => {
 
   useEffect(() => {
     const i = setInterval(() => {
+     
       dispatch(
         addMessage({
           name: generate(),
@@ -20,10 +21,11 @@ export const LivecommentBox = () => {
       );
 
       //api polling
-      console.log("Api polling");
+      // console.log("Api polling");
     }, 2000);
 
     return () => clearInterval(i);
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -40,7 +42,7 @@ export const LivecommentBox = () => {
                 <Chatmessage
                   name={chat.name}
                   message={chat.message}
-                  id={index}
+                  id={chat.name}
                 />
               );
             })}

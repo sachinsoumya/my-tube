@@ -32,13 +32,14 @@ const Watchpage = () => {
     }
 
     // setCheck(true);
-    console.log("rerendering")
+    // console.log("rerendering")
+    // eslint-disable-next-line
   }, [dispatch , query]);
 
   if (searchResult) {
     navigate('/')
   } else {
-    console.log("hii");
+    // console.log("hii");
   }
   return (
     <div>

@@ -24,6 +24,7 @@ const ChannelDetails = () => {
     if (searchResult) {
       dispatch(searchResullts(""));
     }
+    // eslint-disable-next-line
   }, []);
 
   const getData = async () => {
@@ -31,10 +32,10 @@ const ChannelDetails = () => {
       const data = await fetch(CHANNEL_API + id);
       const json = await data.json();
 
-      console.log(json);
+      // console.log(json); api data for channel details
       setProfile(json.items[0]);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message); error message
       setError(error.message);
     }
   };
