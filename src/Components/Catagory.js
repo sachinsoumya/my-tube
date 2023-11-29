@@ -30,7 +30,7 @@ const Catagory = () => {
   useEffect(() => {
     getData(id);
 
-    console.log("Hello");
+    // console.log("Hello");
     if (searchResult) {
       dispatch(searchResullts(""));
     }

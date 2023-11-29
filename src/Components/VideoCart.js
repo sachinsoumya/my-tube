@@ -40,9 +40,9 @@ const VideoCart = ({ info }) => {
 
 export const AdVideoCard = ({ info }) => {
   return (
-    <div className="p-1 m-1 hover:bg-zinc-500 rounded-md ">
+    <div className="p-1 m-1 hover:bg-zinc-500 rounded-md md:w-5/6 w-full">
       <VideoCart info={info} />
-      <div className="bg-gray-500 text-white hover:bg-black rounded-lg text-center font-semibold w-1/6">Ad →</div>
+      <div className="bg-gray-500 text-white hover:bg-black rounded-lg text-center text-xs font-semibold w-1/6">Ad →</div>
     </div>
   );
 };
