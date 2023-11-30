@@ -63,8 +63,8 @@ const Catagory = () => {
   }
 
   const statistics = {
-    viewCount: "No records",
-    likeCount: "No records",
+    viewCount: "17865",
+    likeCount: "1832",
   };
 
   return !error ? (
