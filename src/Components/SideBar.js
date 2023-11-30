@@ -51,7 +51,7 @@ export const SideBar = () => {
               </li>
             </Link>
             <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">
-              <Link to="/about">About</Link>
+              <Link to="/about"  onClick={() => cleanState()}>About</Link>
             </li>
 
             <li className="pt-3 hover:bg-slate-200 hover:border hover:border-slate-200 hover:rounded-lg">
