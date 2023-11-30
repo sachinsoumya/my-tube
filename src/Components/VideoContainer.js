@@ -49,7 +49,7 @@ const statistics = {
             {searchResullts.map((video) => (
               <Link
                 to={`/watch?v=${video.id.videoId}`}
-                key={video.id}
+                key={video.id.videoId}
                 onClick={() => {
                   dispatch(addLike(statistics));
                 }}
@@ -93,7 +93,7 @@ const statistics = {
                 onClick={() => {
                   dispatch(addLike(statistics));
                 }}
-                key={video.id}
+                key={video.id.videoId}
               >
                 <VideoCart info={video} />
               </Link>

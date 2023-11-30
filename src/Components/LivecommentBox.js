@@ -29,7 +29,7 @@ export const LivecommentBox = () => {
   }, []);
 
   return (
-    <div className=" border border-slate-500 rounded-lg px-2">
+    <div className=" border border-slate-500 rounded-lg px-2 mx-2">
       <div className="font-bold text-2xl border-b-2 border-slate-500 p-3">
         Top chat 🔽
       </div>
@@ -69,7 +69,7 @@ export const LivecommentBox = () => {
         >
           <input
             type="text"
-            className="w-96 border border-black px-3"
+            className="w-[22rem] md:w-96 border border-black px-3 my-2"
             onChange={(e) => setInput(e.target.value)}
           />
           <button className="bg-slate-200 px-2 mx-2 rounded-md text-lg text-black">
