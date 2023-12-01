@@ -112,11 +112,10 @@ export const Head = () => {
           value={searchQuery}
         />
 
-        <button
-          className="border border-black p-1 md:p-2 rounded-r-full bg-gray-100 "
-          onClick={() => updateState(searchQuery)}
-        >
+        <button className="border border-black p-1 md:p-2 rounded-r-full bg-gray-100 "  onClick={() => updateState(searchQuery)}>
           {" "}
+
+          🔍
         </button>
 
         {!error && showSuggestions && (
